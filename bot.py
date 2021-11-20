@@ -29,10 +29,10 @@ class Bot:
         self.bot.send_message(user['chat_id'], msg, parse_mode="HTML")
 
     def authorize(self, user: pd.DataFrame):
-        polis_wp = self.driver.find_element_by_name('policy-number')
-        d_wp = self.driver.find_element_by_name('day')
-        m_wp = self.driver.find_element_by_name('month')
-        y_wp = self.driver.find_element_by_name('year')
+        polis_wp = self.driver.find_element('policy-number')
+        d_wp = self.driver.find_element('day')
+        m_wp = self.driver.find_element('month')
+        y_wp = self.driver.find_element('year')
 
         polis_wp.send_keys(user['police_number'])
         d, m, y = tuple(user['birth_date'].strftime('%d.%m.%Y').split('.'))
@@ -41,7 +41,7 @@ class Bot:
         y_wp.send_keys(y)
         sleep(5)
 
-        self.driver.find_element_by_class_name('_3ZwLuw').submit()
+        self.driver.find_element('_3ZwLuw').submit()
         sleep(30)
 
     def check_for_user(self, user: pd.DataFrame, index: int) -> pd.DataFrame:
@@ -81,7 +81,7 @@ class Bot:
 
     def go_to_specialists(self, user: pd.DataFrame):
 
-        specialists = self.driver.find_elements_by_class_name('_9Ki6B-')
+        specialists = self.driver.find_elements('_9Ki6B-')
 
         spec_button = dataparser.find_specialist(specialists, user['doc_type'])
         spec_button.click()
@@ -89,7 +89,7 @@ class Bot:
 
         # уберем вылезающее окошко (иногда)
         try:
-            okno = self.driver.find_element_by_class_name('_1U2vgr')
+            okno = self.driver.find_element('_1U2vgr')
             okno.find_elements_by_class_name('_3ZwLuw')[-1].click()
             sleep(5)
         except:
