@@ -7,6 +7,7 @@ with open('token.txt') as fin:
 
 bot = Bot(TOKEN, "./emias_buff.csv")
 
+# noinspection PyBroadException
 try:
     bot.loop()
 except:
