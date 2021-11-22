@@ -42,7 +42,7 @@ class Bot:
         y_wp.send_keys(y)
         sleep(5)
 
-        self.driver.find_element(By.CLASS_NAME, '_3ZwLuw').submit()
+        self.driver.find_element(By.CLASS_NAME, '_3ZwLuw').click()
         sleep(30)
 
     def check_for_user(self, user: pd.DataFrame, index: int) -> pd.DataFrame:
