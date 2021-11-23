@@ -10,22 +10,22 @@ def parse_med_centre(bs_obj):
     result['med_centre_name'] = med_centre.text
     result['address'] = bs_obj.find('div', {'class': '_3LO55l'}).text
     doctors = bs_obj.find_all('li', {'class': '_1HyuCf'})
-    return (result, doctors)
+    return result, doctors
 
 
 def parse_doctor(bs_obj):
-    result = {'doc_name': '', 'nearest_date': '', 'doc_type': '', 'room': ''}
-    result['doc_name'] = bs_obj.find('div', {'class': '_2-nIhZ'}).text
-    result['nearest_date'] = bs_obj.find('div', {'class': '_3rzMNf'}).text
-    result['doc_type'] = bs_obj.find('span', {'class': '_9LDJkS'}).text.strip().replace('\xa0', '')
-    result['room'] = bs_obj.find('div', {'class': '_2N0Raa'}).text
+    # result = {'doc_name': '', 'nearest_date': '', 'doc_type': '', 'room': ''}
+    result = {'doc_name': bs_obj.find('div', {'class': '_2-nIhZ'}).text,
+              'nearest_date': bs_obj.find('div', {'class': '_3rzMNf'}).text,
+              'doc_type': bs_obj.find('span', {'class': '_9LDJkS'}).text.strip().replace('\xa0', ''),
+              'room': bs_obj.find('div', {'class': '_2N0Raa'}).text}
     return result
 
 
 def find_specialist(specialists, target_spec_type):
     for specialist in specialists:
         spec_type = specialist.find_element_by_class_name(
-                '_2O3nTn').text
+            '_2O3nTn').text
         if spec_type == target_spec_type:
             return specialist
 
@@ -34,7 +34,7 @@ def parse_all_doctors(page_source):
     bs_obj = bs(page_source, 'html.parser')
     med_centres = bs_obj.find_all('li', {'class': 'box _3KeUxT'})
     columns = ['med_centre_name', 'address', 'doc_name', 'nearest_date',
-                   'doc_type', 'room']
+               'doc_type', 'room']
     result = pd.DataFrame({}, columns=columns)
 
     if len(med_centres) > 0:
@@ -49,4 +49,3 @@ def parse_all_doctors(page_source):
                 cnt += 1
                 result = result.append(doctor_data)
     return result
-

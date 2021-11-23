@@ -66,14 +66,21 @@ class Bot:
         print('Доступные сейчас врачи')
         print(result_data)
 
-        if user['doc_name'] in result_data['doc_name'].unique():
-            result_data = result_data.loc[
-                    result_data['doc_name'] == user['doc_name'], :]
+        if user['doc_name']:
             self.alert(user, result_data)
             self.delete_user(index)
         else:
             self.bot.send_message(121388200, "Врачи не найдены")
         self.driver.close()
+
+        # if user['doc_name'] in result_data['doc_name'].unique():
+        #    result_data = result_data.loc[
+        #            result_data['doc_name'] == user['doc_name'], :]
+        #    self.alert(user, result_data)
+        #    self.delete_user(index)
+        # else:
+        #    self.bot.send_message(121388200, "Врачи не найдены")
+        # self.driver.close()
 
     def delete_user(self, index):
         self.users.drop(index, inplace=True)
