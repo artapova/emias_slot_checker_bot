@@ -42,7 +42,7 @@ class Bot:
         y_wp.send_keys(y)
         sleep(5)
 
-        self.driver.find_element(By.CLASS_NAME, '_3ZwLuw').click()
+        self.driver.find_element(By.CLASS_NAME, '_3ZwLuw').submit()
         sleep(30)
 
     def check_for_user(self, user: pd.DataFrame, index: int) -> pd.DataFrame:
@@ -53,7 +53,7 @@ class Bot:
         self.authorize(user)
         print('авторизовались')
 
-        for i in range(5):
+        for i in range(10):
             try:
                 self.go_to_specialists(user)
                 break
@@ -90,8 +90,9 @@ class Bot:
     def go_to_specialists(self, user: pd.DataFrame):
 
         specialists = self.driver.find_elements(By.CLASS_NAME, '_9Ki6B-')
-
+        print(specialists)
         spec_button = dataparser.find_specialist(specialists, user['doc_type'])
+        # print(spec_button)
         spec_button.click()
         sleep(10)
 

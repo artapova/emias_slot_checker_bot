@@ -32,6 +32,7 @@ def find_specialist(specialists, target_spec_type):
 
 def parse_all_doctors(page_source):
     bs_obj = bs(page_source, 'html.parser')
+    # print(bs_obj)
     med_centres = bs_obj.find_all('li', {'class': 'box _3KeUxT'})
     columns = ['med_centre_name', 'address', 'doc_name', 'nearest_date',
                'doc_type', 'room']
