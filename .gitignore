@@ -135,3 +135,4 @@ emias_buff_copy.csv
 geckodriver.log
 __pycache__
 __pycache__/*
+.idea
