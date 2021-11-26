@@ -1,6 +1,7 @@
 import pandas as pd
 
 from bs4 import BeautifulSoup as bs
+from selenium.webdriver.common.by import By
 
 
 def parse_med_centre(bs_obj):
@@ -24,8 +25,8 @@ def parse_doctor(bs_obj):
 
 def find_specialist(specialists, target_spec_type):
     for specialist in specialists:
-        spec_type = specialist.find_element_by_class_name(
-            '_2O3nTn').text
+        spec_type = specialist.find_element(By.CLASS_NAME,
+                                            '_2O3nTn').text
         if spec_type == target_spec_type:
             return specialist
 

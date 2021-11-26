@@ -42,10 +42,12 @@ class Bot:
         y_wp.send_keys(y)
         sleep(5)
 
-        # self.driver.find_element(By.CLASS_NAME, '_3ZwLuw').click()
+        print(self.driver.current_url)
+        self.driver.find_element(By.CLASS_NAME, 'qC38kU._1THNmg.QbyY_a.DtpwHI._3e3Ly8').submit()
         # qC38kU._1THNmg.QbyY_a.DtpwHI._3e3Ly8
-        self.driver.find_element(By.Type, 'submit').submit()
+        # self.driver.find_element(By.XPATH, "//button[@type='submit']").submit()
         sleep(30)
+        print(self.driver.current_url)
 
     def check_for_user(self, user: pd.DataFrame, index: int) -> pd.DataFrame:
         self.driver.get('https://emias.info/')
