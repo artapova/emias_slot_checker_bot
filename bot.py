@@ -20,7 +20,7 @@ class Bot:
         firefox_options = Options()
         firefox_options.add_argument('--headless')
         self.firefox_options = firefox_options
-        # self.bot.send_message(user['chat_id'], 'Bot is starting..')
+        self.bot.send_message(121388200, 'Bot is starting..')
 
     def alert(self, user: pd.DataFrame, result_data: pd.DataFrame):
         msg = f"Запись к <b>{user['doc_name']}</b> доступна!\n"
@@ -116,5 +116,5 @@ class Bot:
 
             sleep(5)
 
-    def send_error_alert(self, user: pd.DataFrame, text):
-        self.bot.send_message(user['chat_id'], text)
+    def send_error_alert(self, text):
+        self.bot.send_message(121388200, text)
