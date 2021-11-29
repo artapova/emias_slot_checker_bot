@@ -20,7 +20,7 @@ class Bot:
         firefox_options = Options()
         firefox_options.add_argument('--headless')
         self.firefox_options = firefox_options
-        self.bot.send_message(121388200, 'Bot is starting..')
+        # self.bot.send_message(user['chat_id'], 'Bot is starting..')
 
     def alert(self, user: pd.DataFrame, result_data: pd.DataFrame):
         msg = f"Запись к <b>{user['doc_name']}</b> доступна!\n"
@@ -70,25 +70,18 @@ class Bot:
         print('Доступные сейчас врачи')
         print(result_data)
 
-        if user['doc_name']:
+        if user['doc_name'] in result_data['doc_name'].unique():
+            result_data = result_data.loc[
+                    result_data['doc_name'] == user['doc_name'], :]
             self.alert(user, result_data)
             self.delete_user(index)
         else:
-            self.bot.send_message(121388200, "Врачи не найдены")
+            self.bot.send_message(user['chat_id'], "Врачи не найдены")
         self.driver.close()
-
-        # if user['doc_name'] in result_data['doc_name'].unique():
-        #    result_data = result_data.loc[
-        #            result_data['doc_name'] == user['doc_name'], :]
-        #    self.alert(user, result_data)
-        #    self.delete_user(index)
-        # else:
-        #    self.bot.send_message(121388200, "Врачи не найдены")
-        # self.driver.close()
 
     def delete_user(self, index):
         self.users.drop(index, inplace=True)
-        #self.users.to_csv(self.buff_path, index=False)
+        # self.users.to_csv(self.buff_path, index=False)
         print(self.users)
 
     def go_to_specialists(self, user: pd.DataFrame):
@@ -112,6 +105,7 @@ class Bot:
         while True:
 
             self.driver = webdriver.Firefox(firefox_options=self.firefox_options)
+
             sleep(5)
 
             for index, user in self.users.iterrows():
@@ -122,5 +116,5 @@ class Bot:
 
             sleep(5)
 
-    def send_error_alert(self, text):
-        self.bot.send_message(121388200, text)
+    def send_error_alert(self, user: pd.DataFrame, text):
+        self.bot.send_message(user['chat_id'], text)
