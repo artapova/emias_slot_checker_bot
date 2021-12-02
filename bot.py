@@ -68,16 +68,17 @@ class Bot:
         result_data = dataparser.parse_all_doctors(self.driver.page_source)
         print('спарсили данные')
         print('Доступные сейчас врачи')
-        print(result_data)
+        result_data.to_csv("./emias_buff2.csv")
 
-        if user['doc_name'] in result_data['doc_name'].unique():
-            result_data = result_data.loc[
-                    result_data['doc_name'] == user['doc_name'], :]
-            self.alert(user, result_data)
-            self.delete_user(index)
-        else:
-            self.bot.send_message(user['chat_id'], "Врачи не найдены")
-        self.driver.close()
+
+        # if user['doc_name'] in result_data['doc_name'].unique():
+        #   result_data = result_data.loc[
+        #            result_data['doc_name'] == user['doc_name'], :]
+        #    self.alert(user, result_data)
+        #    self.delete_user(index)
+        # else:
+        #    self.bot.send_message(user['chat_id'], "Врачи не найдены")
+        # self.driver.close()
 
     def delete_user(self, index):
         self.users.drop(index, inplace=True)
